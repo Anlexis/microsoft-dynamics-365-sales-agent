@@ -1,0 +1,16 @@
+# Runtime parameters — loaded by AgentRegistry, passed as Graph(config=...).
+# Separate from config/agent.yaml (the static manifest).
+
+# Backbone retry budget for a RETRY status returned by the main slot.
+max_retry: 3
+
+# Per-call budget (seconds) for one Dynamics 365 Web API request. Enforced by
+# Dynamics365Client: a transport that overruns it surfaces as a request-timeout
+# error, never a hung invoke.
+timeout_s: 30
+
+# Dynamics 365 Web API (Dataverse OData v4) connector settings. Forwarded to the
+# inner workflow graph by Dynamics365WorkflowGraphNode._parent_config() under
+# config["configurable"]; CallDynamicsApiNode builds its client from these.
+dynamics:
+  base_url: "https://orgname.crm.dynamics.com/api/data/v9.2"

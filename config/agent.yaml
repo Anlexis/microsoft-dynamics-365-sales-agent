@@ -1,0 +1,31 @@
+# Agent Manifest — AgentRegistry entry point
+# AgentRegistry (mediator/registry/agent_registry.py) reads every key below at
+# ROOT level — do NOT nest keys under an `agent:` block.
+id: "CMN-C2-231"
+name: "Dynamics365SalesAgent"
+namespace: "cmn"
+version: "0.1.0"
+enabled: true
+category: "Cat 2"
+generation_mode: "deterministic"  # deterministic | llm
+industry: "CMN"
+
+base_type: "ToolCallingAgent"
+
+# Entry point — single dotted import path (module.Class), NOT split module:/class:.
+class: "src.graph.graph.Dynamics365SalesAgent"
+
+required_trust_level: "VERIFIED_EXTERNAL"
+
+# Compile-time gates — declare every ctx.secrets.require() key + constructed extra.
+# The Dynamics 365 integration token is read with ctx.secrets.get() and the agent
+# degrades to its network-free default transport when it is absent, so it is
+# deliberately NOT declared here: a declared secret is a hard compile-time
+# requirement and would refuse to load a deployment that never makes a live call.
+requires:
+  secrets: []
+  extras: []
+
+# Runtime parameters (max_retry, timeout_s, the dynamics connector block) live in
+# config/config.yaml — the registry loads that file separately and passes it as
+# Graph(config=...). Do NOT put them here.

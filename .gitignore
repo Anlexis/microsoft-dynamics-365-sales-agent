@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+.env
+*.egg
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+htmlcov/
+.coverage
+
+# Locally-placed reference files — kept out of version control on purpose.
+CLAUDE.md
+security_rules/
+ci_stubs/
+MANIFEST.md
